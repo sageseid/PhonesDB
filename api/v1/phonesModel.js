@@ -1,6 +1,7 @@
 const db = require("../db-config.js");
 
 
+
 async function getfilteredPhones(filters) {
   return await db("phonesdb")
     .where(builder => {
@@ -25,21 +26,55 @@ async function getfilteredPhones(filters) {
         builder.whereBetween("cam1MP", [filters.cam1MP.$gte, filters.cam1MP.$lte]);
       }
 
+      if (filters.cam2MP) {
+        builder.whereBetween("cam2MP", [filters.cam2MP.$gte, filters.cam2MP.$lte]);
+      }
+
+
+      if (filters.cam1vidP) {
+        builder.whereBetween("cam1vidP", [filters.cam1vidP.$gte, filters.cam1vidP.$lte]);
+      }
+
+
+      if (filters.cam2vidP) {
+        builder.whereBetween("cam2vidP", [filters.cam2vidP.$gte, filters.cam2vidP.$lte]);
+      }
+
+
       if (filters.storageGB) {
-        builder.whereBetween("cam1", filters.storageGB);
+        builder.whereIn("storageGB", filters.storageGB);
       }
 
       if (filters.ramGB) {
-        builder.whereBetween("cam1", filters.ramGB);
+        builder.whereIn("ramGB", filters.ramGB);
       }
      
       if (filters.batterymAH) {
         builder.whereBetween("batterymAH", [filters.batterymAH.$gte, filters.batterymAH.$lte]);
       }
-      builder.where("status", true);
+      
+
+
+     if (filters.usb) {
+        builder.where("usb", filters.usb);
+      }
+
+
+      if (filters.memoryslot) {
+        builder.where("memoryslot", filters.memoryslot);
+      }
+
+      if (filters.wirelesscharging) {
+        builder.where("wirelesscharging", filters.wirelesscharging);
+      }
+
+      if (filters.fingerprint) {
+        builder.where("fingerprint", filters.fingerprint);
+      }
     })
     .select("*")
-    .limit(7);
+    .orderBy("fans", "desc") // order by the "fans" column in descending order
+    .limit(10);
 }
 
 module.exports = {

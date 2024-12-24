@@ -2,7 +2,7 @@ const express = require("express")
 //const cors = require("cors")
 
 const phonesRouter = require("./v1/phonesRouter")
-
+const phonesRouter2 = require("./v2/phonesRouter2")
 //const db = require("/db-config")
 
 const server = express();
@@ -24,6 +24,7 @@ server.use(express.urlencoded({ extended: false }));
 // }))
 
 server.use("/phones" , phonesRouter)
+server.use("/phones2" , phonesRouter2)
 
 
 

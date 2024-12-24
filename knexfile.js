@@ -4,7 +4,10 @@ require('dotenv').config();
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
-
+// Deployment of Super App (Android )to Beta
+// Rewrite Retailer Wallet Top Up Endpoint
+// Add ID for wifi and retailer feature in. login endpoint  - done 
+// Update Sales and notifcation History Endpoint  - done 
 
 const sharedConfig = {
   client: 'sqlite3',

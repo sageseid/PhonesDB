@@ -10,9 +10,19 @@ async function getfilteredPhones(filters) {
     phones = phones.filter(phone => {
       let match = true;
 
-      if (filters.releaseDate) {
-        match = match && new Date(phone.releaseDate) >= new Date(filters.releaseDate);
-      }
+      // if (filters.releaseDate) {
+      //   match = match && new Date(phone.releaseDate) >= new Date(filters.releaseDate);
+      // }
+
+       // Modified release date logic
+       if (filters.releaseDate) {
+        const phoneDate = new Date(phone.releaseDate);
+        const startDate = new Date('2012-01-01');
+        const endDate = new Date(filters.releaseDate);
+        match = match && phoneDate >= startDate && phoneDate <= endDate;
+    }
+
+
       if (filters.price) {
         match = match && phone.price >= filters.price.$gte && phone.price <= filters.price.$lte;
       }

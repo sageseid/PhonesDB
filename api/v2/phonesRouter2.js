@@ -11,9 +11,18 @@ router.get("/filter", async (req, res) => {
   try {
     const filters = {};
     
+    // if (req.query.releaseDate) {
+    //   filters.releaseDate = req.query.releaseDate;
+    // }
+
+    // Modified release date handling
     if (req.query.releaseDate) {
-      filters.releaseDate = req.query.releaseDate;
-    }
+      // Convert the date to YYYY-MM-DD format for consistency
+      const date = new Date(req.query.releaseDate);
+      filters.releaseDate = date.toISOString().split('T')[0];
+  }
+
+
     if (req.query.priceMin && req.query.priceMax) {
       filters.price = { $gte: parseInt(req.query.priceMin), $lte: parseInt(req.query.priceMax) };
     }

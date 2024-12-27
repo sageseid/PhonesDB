@@ -1,5 +1,6 @@
 const express = require("express")
-//const cors = require("cors")
+const cors = require("cors")
+const helmet = require("helmet"); 
 
 const phonesRouter = require("./v1/phonesRouter")
 const phonesRouter2 = require("./v2/phonesRouter2")
@@ -7,8 +8,12 @@ const phonesRouter2 = require("./v2/phonesRouter2")
 
 const server = express();
 
-//server.use(helmet());
-//server.use(cors());
+server.use(helmet());
+server.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
@@ -25,6 +30,8 @@ server.use(express.urlencoded({ extended: false }));
 
 server.use("/phones" , phonesRouter)
 server.use("/phones2" , phonesRouter2)
+
+
 
 
 

@@ -2,6 +2,11 @@ const express = require("express");
 const phones_model = require("./phonesModal2");
 const router = express.Router();
 
+router.get("/test", (req, res) => {
+  res.json({ message: "phones2 router is working" });
+});
+
+
 router.get("/filter", async (req, res) => {
   try {
     const filters = {};
